@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { TaskItem, TaskStatus, TaskStatusLabels, TaskStatusColors } from '@/types/task';
 import { taskService } from '@/lib/taskService';
+import { formatDate, formatRelativeTime } from '@/lib/dateUtils';
 import TaskForm from '@/components/TaskForm';
 import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 
@@ -33,7 +34,11 @@ export default function TaskPage() {
 
   const handleCreateTask = async (taskData: Omit<TaskItem, 'id' | 'createdAt' | 'updatedAt'>) => {
     try {
-      await taskService.createTask(taskData);
+      // Para crear, solo enviamos title y description
+      await taskService.createTask({
+        title: taskData.title,
+        description: taskData.description
+      });
       await loadTasks();
       setShowForm(false);
     } catch (err) {
@@ -131,7 +136,7 @@ export default function TaskPage() {
                         {task.description && (
                           <p className="text-gray-600 mt-1">{task.description}</p>
                         )}
-                        <div className="flex items-center mt-3 space-x-4">
+                        <div className="flex items-center mt-3 space-x-4 text-sm text-gray-500">
                           <span
                             className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
                               TaskStatusColors[task.status]
@@ -139,9 +144,14 @@ export default function TaskPage() {
                           >
                             {TaskStatusLabels[task.status]}
                           </span>
-                          <span className="text-sm text-gray-500">
-                            Creada: {new Date(task.createdAt).toLocaleDateString()}
+                          <span title={`Creada el ${formatDate(task.createdAt)}`}>
+                            Creada: {formatRelativeTime(task.createdAt)}
                           </span>
+                          {task.updatedAt !== task.createdAt && (
+                            <span title={`Actualizada el ${formatDate(task.updatedAt)}`}>
+                              • Actualizada: {formatRelativeTime(task.updatedAt)}
+                            </span>
+                          )}
                         </div>
                       </div>
                       <div className="flex space-x-2 ml-4">

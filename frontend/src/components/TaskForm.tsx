@@ -90,7 +90,8 @@ export default function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
               name="status"
               value={formData.status}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              disabled={!task} // Deshabilitar para nuevas tareas
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
             >
               {Object.entries(TaskStatusLabels).map(([value, label]) => (
                 <option key={value} value={value}>
@@ -98,6 +99,11 @@ export default function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
                 </option>
               ))}
             </select>
+            {!task && (
+              <p className="text-xs text-gray-500 mt-1">
+                Las nuevas tareas se crean con estado "Pendiente"
+              </p>
+            )}
           </div>
 
           <div className="flex space-x-3 pt-4">

@@ -22,15 +22,20 @@ export const taskService = {
   },
 
   // Crear nueva tarea
-  async createTask(task: Omit<TaskItem, 'id' | 'createdAt' | 'updatedAt'>): Promise<TaskItem> {
+  async createTask(task: Omit<TaskItem, 'id' | 'createdAt' | 'updatedAt' | 'status'>): Promise<TaskItem> {
     const response = await fetch(`${API_BASE_URL}/tasks`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(task),
+      body: JSON.stringify({
+        title: task.title,
+        description: task.description
+      }),
     });
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Error creating task:', response.status, errorText);
       throw new Error('Error al crear la tarea');
     }
     return response.json();
@@ -43,9 +48,15 @@ export const taskService = {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(task),
+      body: JSON.stringify({
+        title: task.title,
+        description: task.description,
+        status: task.status
+      }),
     });
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Error updating task:', response.status, errorText);
       throw new Error('Error al actualizar la tarea');
     }
     return response.json();

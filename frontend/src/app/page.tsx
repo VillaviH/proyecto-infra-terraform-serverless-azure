@@ -114,27 +114,15 @@ export default function TaskPage() {
           </p>
           <div className="flex justify-center items-center space-x-4 text-sm text-gray-500 bg-white py-3 px-6 rounded-lg shadow-sm">
             <span className="flex items-center">
-              ⚛️ <span className="ml-1">React/Next.js</span>
+              ⚛️ <span className="ml-1">Frontend: Next.js 14</span>
             </span>
             <span>•</span>
             <span className="flex items-center">
-              🔷 <span className="ml-1">TypeScript</span>
+              💜 <span className="ml-1">Backend: .NET Core 8</span>
             </span>
             <span>•</span>
             <span className="flex items-center">
-              🎨 <span className="ml-1">Tailwind CSS</span>
-            </span>
-            <span>•</span>
-            <span className="flex items-center">
-              💜 <span className="ml-1">.NET Core</span>
-            </span>
-            <span>•</span>
-            <span className="flex items-center">
-              ⚡ <span className="ml-1">Azure Functions</span>
-            </span>
-            <span>•</span>
-            <span className="flex items-center">
-              🗄️ <span className="ml-1">SQL Server</span>
+              🗄️ <span className="ml-1">DB: Azure SQL Server</span>
             </span>
             <span>•</span>
             <span className="flex items-center">

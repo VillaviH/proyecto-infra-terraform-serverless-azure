@@ -104,11 +104,50 @@ export default function TaskPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header principal con tecnologías */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            📝 Gestión de Tareas CRUD
+          </h1>
+          <p className="text-lg text-gray-600 mb-4">
+            Aplicación serverless completa con tecnologías modernas
+          </p>
+          <div className="flex justify-center items-center space-x-4 text-sm text-gray-500 bg-white py-3 px-6 rounded-lg shadow-sm">
+            <span className="flex items-center">
+              ⚛️ <span className="ml-1">React/Next.js</span>
+            </span>
+            <span>•</span>
+            <span className="flex items-center">
+              🔷 <span className="ml-1">TypeScript</span>
+            </span>
+            <span>•</span>
+            <span className="flex items-center">
+              🎨 <span className="ml-1">Tailwind CSS</span>
+            </span>
+            <span>•</span>
+            <span className="flex items-center">
+              💜 <span className="ml-1">.NET Core</span>
+            </span>
+            <span>•</span>
+            <span className="flex items-center">
+              ⚡ <span className="ml-1">Azure Functions</span>
+            </span>
+            <span>•</span>
+            <span className="flex items-center">
+              🗄️ <span className="ml-1">SQL Server</span>
+            </span>
+            <span>•</span>
+            <span className="flex items-center">
+              🏗️ <span className="ml-1">Terraform</span>
+            </span>
+          </div>
+        </div>
+
         <div className="bg-white shadow rounded-lg">
-          {/* Header */}
+          {/* Header de la sección de tareas */}
           <div className="px-6 py-4 border-b border-gray-200">
             <div className="flex justify-between items-center">
-              <h1 className="text-2xl font-bold text-gray-900">Gestión de Tareas</h1>
+              <h2 className="text-2xl font-bold text-gray-900">📋 Mis Tareas</h2>
               <button
                 onClick={() => setShowForm(true)}
                 className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
@@ -129,9 +168,17 @@ export default function TaskPage() {
           {/* Task List */}
           <div className="p-6">
             {tasks.length === 0 ? (
-              <div className="text-center py-8">
-                <p className="text-gray-500 text-lg">No hay tareas disponibles</p>
-                <p className="text-gray-400 mt-2">Crea tu primera tarea para comenzar</p>
+              <div className="text-center py-12">
+                <div className="text-6xl mb-4">📋</div>
+                <p className="text-gray-500 text-xl mb-2">¡No hay tareas disponibles!</p>
+                <p className="text-gray-400 mb-6">Crea tu primera tarea para comenzar a organizar tu trabajo</p>
+                <button
+                  onClick={() => setShowForm(true)}
+                  className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                >
+                  <PlusIcon className="h-5 w-5 mr-2" />
+                  Crear Primera Tarea
+                </button>
               </div>
             ) : (
               <div className="space-y-4">

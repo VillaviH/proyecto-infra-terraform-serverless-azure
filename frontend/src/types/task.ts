@@ -15,10 +15,10 @@ export enum TaskStatus {
 }
 
 export const TaskStatusLabels = {
-  [TaskStatus.Pending]: 'Pendiente',
-  [TaskStatus.InProgress]: 'En Progreso',
-  [TaskStatus.Completed]: 'Completada',
-  [TaskStatus.Cancelled]: 'Cancelada'
+  [TaskStatus.Pending]: '⏳ Pendiente',
+  [TaskStatus.InProgress]: '🔄 En Progreso',
+  [TaskStatus.Completed]: '✅ Completada',
+  [TaskStatus.Cancelled]: '❌ Cancelada'
 };
 
 export const TaskStatusColors = {

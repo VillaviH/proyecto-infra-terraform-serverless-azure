@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Gestión de Tareas',
-  description: 'Aplicación CRUD de tareas con Next.js y .NET Core',
+  title: '📝 CRUD App - Gestión de Tareas Serverless',
+  description: 'Aplicación CRUD completa con React/Next.js, .NET Core, Azure Functions, SQL Server y Terraform',
 }
 
 export default function RootLayout({

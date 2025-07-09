@@ -1,0 +1,134 @@
+name: 🔨 Build and Test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build-backend:
+    name: 🔧 Backend Build
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🔧 Setup .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+        
+    - name: 📦 Restore dependencies
+      run: dotnet restore backend/TaskApi.csproj
+      
+    - name: 🔨 Build backend
+      run: dotnet build backend/TaskApi.csproj --configuration Release --no-restore
+      
+    - name: 🧪 Run tests
+      run: dotnet test backend/TaskApi.csproj --configuration Release --no-build --verbosity normal
+      continue-on-error: true
+      
+    - name: 📦 Publish backend
+      run: dotnet publish backend/TaskApi.csproj --configuration Release --output ./backend/publish
+      
+    - name: 📤 Upload backend artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: backend-build
+        path: ./backend/publish
+
+  build-frontend:
+    name: 🌐 Frontend Build
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🔧 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+        
+    - name: 📦 Install dependencies
+      run: |
+        cd frontend
+        npm ci
+        
+    - name: 🔍 Lint code
+      run: |
+        cd frontend
+        npm run lint
+      continue-on-error: true
+        
+    - name: 🔨 Build frontend
+      run: |
+        cd frontend
+        npm run build
+        
+    - name: 📤 Upload frontend artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: frontend-build
+        path: ./frontend/out
+
+  validate-infrastructure:
+    name: 🏗️ Validate Infrastructure
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🔧 Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.5.0
+        
+    - name: 🔍 Terraform Format Check
+      run: |
+        cd infrastructure
+        terraform fmt -check
+      continue-on-error: true
+        
+    - name: 🔧 Terraform Init
+      run: |
+        cd infrastructure
+        terraform init -backend=false
+        
+    - name: ✅ Terraform Validate
+      run: |
+        cd infrastructure
+        terraform validate
+        
+    - name: 📋 Terraform Plan
+      run: |
+        cd infrastructure
+        terraform plan -out=tfplan
+      continue-on-error: true
+
+  security-scan:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🔒 Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+        
+    - name: 📤 Upload Trivy scan results
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'

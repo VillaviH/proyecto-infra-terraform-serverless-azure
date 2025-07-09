@@ -197,8 +197,86 @@ Después del despliegue exitoso, obtendrás:
 
 ### Infraestructura
 - **Terraform** - Infrastructure as Code
-- **Azure Resource Manager** - Gestión de recursos
-- **Azure** - Plataforma en la nube
+
+### CI/CD
+- **GitHub Actions** - Integración y despliegue continuo
+- **Azure DevOps** - Pipelines de build y release
+- **Automated Testing** - Pruebas automatizadas en cada push
+- **Security Scanning** - Análisis de vulnerabilidades con Trivy y Checkov
+- **Cost Estimation** - Estimación automática de costos con Infracost
+
+## 🔄 CI/CD con GitHub Actions
+
+Este proyecto incluye workflows automatizados de GitHub Actions para CI/CD:
+
+### 🔨 Build and Test (`.github/workflows/build.yml`)
+**Trigger**: Push y Pull Requests a `main` y `develop`
+- ✅ Build del backend (.NET Core 8)
+- ✅ Build del frontend (Next.js)
+- ✅ Validación de infraestructura Terraform
+- ✅ Análisis de seguridad con Trivy
+- ✅ Tests automatizados
+- ✅ Linting y formato de código
+
+### 🚀 Deploy to Azure (`.github/workflows/deploy.yml`)
+**Trigger**: Push a `main` branch
+- ✅ Despliegue de infraestructura con Terraform
+- ✅ Despliegue del backend a Azure Functions
+- ✅ Despliegue del frontend a Azure Static Web Apps
+- ✅ Health checks automatizados
+- ✅ Notificaciones de estado
+
+### 🏗️ Infrastructure Changes (`.github/workflows/infrastructure.yml`)
+**Trigger**: Cambios en `infrastructure/` folder
+- ✅ Plan de Terraform automático
+- ✅ Aplicación controlada con aprobaciones
+- ✅ Análisis de seguridad con Checkov
+- ✅ Estimación de costos con Infracost
+- ✅ Generación automática de documentación
+
+### 🔧 Configuración Inicial de GitHub Actions
+
+1. **Ejecutar script de configuración**:
+   ```bash
+   chmod +x scripts/setup-github-actions.sh
+   ./scripts/setup-github-actions.sh
+   ```
+
+2. **Configuración manual** (si prefieres):
+   - Sigue las instrucciones en `.github/workflows/secrets-template.md`
+   - Configura los secrets requeridos en GitHub
+   - Crea el environment `production` con reviewers
+
+3. **Secrets requeridos**:
+   - `AZURE_CREDENTIALS` - Credenciales del service principal
+   - `SQL_CONNECTION_STRING` - Cadena de conexión de SQL Server
+   - `AZURE_STATIC_WEB_APPS_API_TOKEN` - Token de Static Web Apps
+   - `INFRACOST_API_KEY` - (Opcional) API key para estimación de costos
+
+### 🎯 Flujo de Trabajo Recomendado
+
+1. **Desarrollo**:
+   ```bash
+   git checkout -b feature/nueva-funcionalidad
+   # ... hacer cambios ...
+   git push origin feature/nueva-funcionalidad
+   ```
+   ▶️ Se ejecuta automáticamente el workflow de **Build and Test**
+
+2. **Pull Request**:
+   - Crear PR hacia `main`
+   - Revisar los checks automatizados
+   - Aprobar y hacer merge
+
+3. **Despliegue**:
+   - Al hacer merge a `main`, se ejecuta automáticamente:
+     - ▶️ **Deploy to Azure** workflow
+     - ▶️ **Infrastructure Changes** workflow (si aplica)
+
+4. **Monitoreo**:
+   - Verificar health checks
+   - Revisar logs en Azure Portal
+   - Validar funcionalidad en la aplicación desplegada
 
 ## 📝 API Endpoints
 

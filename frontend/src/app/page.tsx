@@ -107,7 +107,7 @@ export default function TaskPage() {
         {/* Header principal con tecnologías */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            📝 Gestión de Tareas CRUD - FINAL
+            � Gestión de Tareas CRUD - AUTO DEPLOY ACTIVO
           </h1>
           <p className="text-lg text-gray-600 mb-4">
             Aplicación serverless completa con tecnologías modernas ✨

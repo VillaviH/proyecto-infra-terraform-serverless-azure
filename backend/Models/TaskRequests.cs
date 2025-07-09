@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace TaskCrudApi.Models;
+namespace TaskApi.Models;
 
 public class CreateTaskRequest
 {
@@ -10,19 +10,16 @@ public class CreateTaskRequest
     
     [StringLength(1000)]
     public string? Description { get; set; }
-    
-    public Priority Priority { get; set; } = Priority.Medium;
 }
 
 public class UpdateTaskRequest
 {
+    [Required]
     [StringLength(200)]
-    public string? Title { get; set; }
+    public string Title { get; set; } = string.Empty;
     
     [StringLength(1000)]
     public string? Description { get; set; }
     
-    public bool? IsCompleted { get; set; }
-    
-    public Priority? Priority { get; set; }
+    public TaskStatus Status { get; set; }
 }

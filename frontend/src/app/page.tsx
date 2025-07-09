@@ -110,7 +110,7 @@ export default function TaskPage() {
             📝 Gestión de Tareas CRUD ...
           </h1>
           <p className="text-lg text-gray-600 mb-4">
-            Aplicación serverless completa con tecnologías modernas
+            Aplicación serverless completa con tecnologías modernas ...
           </p>
           <div className="flex justify-center items-center space-x-4 text-sm text-gray-500 bg-white py-3 px-6 rounded-lg shadow-sm">
             <span className="flex items-center">

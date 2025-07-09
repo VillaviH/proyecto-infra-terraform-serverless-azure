@@ -22,21 +22,32 @@ export const taskService = {
   },
 
   // Crear nueva tarea
-  async createTask(task: Omit<TaskItem, 'id' | 'createdAt' | 'updatedAt' | 'status'>): Promise<TaskItem> {
+  async createTask(task: { title: string; description?: string }): Promise<TaskItem> {
+    console.log('Creating task with data:', task); // Debug log
+    
+    // El backend espera un TaskItem con propiedades en PascalCase
+    const requestBody = {
+      Title: task.title,
+      Description: task.description || null,
+      Status: 0, // TaskStatus.Pending
+      CreatedAt: new Date().toISOString(),
+      UpdatedAt: new Date().toISOString()
+    };
+    
+    console.log('Request body:', requestBody); // Debug log
+    
     const response = await fetch(`${API_BASE_URL}/tasks`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        title: task.title,
-        description: task.description
-      }),
+      body: JSON.stringify(requestBody),
     });
+    
     if (!response.ok) {
       const errorText = await response.text();
       console.error('Error creating task:', response.status, errorText);
-      throw new Error('Error al crear la tarea');
+      throw new Error(`Error al crear la tarea: ${errorText}`);
     }
     return response.json();
   },
@@ -49,9 +60,9 @@ export const taskService = {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        title: task.title,
-        description: task.description,
-        status: task.status
+        Title: task.title,
+        Description: task.description || null,
+        Status: task.status
       }),
     });
     if (!response.ok) {

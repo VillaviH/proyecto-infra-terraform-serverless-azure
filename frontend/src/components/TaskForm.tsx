@@ -19,11 +19,18 @@ export default function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.title.trim()) return;
+    
+    // Validación adicional
+    if (!formData.title || !formData.title.trim()) {
+      alert('El título es requerido');
+      return;
+    }
+    
+    console.log('Form data being submitted:', formData); // Debug log
     
     onSubmit({
       title: formData.title.trim(),
-      description: formData.description.trim() || undefined,
+      description: formData.description?.trim() || undefined,
       status: formData.status,
     });
   };

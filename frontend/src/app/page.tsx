@@ -34,16 +34,26 @@ export default function TaskPage() {
 
   const handleCreateTask = async (taskData: Omit<TaskItem, 'id' | 'createdAt' | 'updatedAt'>) => {
     try {
+      console.log('Creating task with form data:', taskData); // Debug log
+      
+      // Validar que el título no esté vacío
+      if (!taskData.title || !taskData.title.trim()) {
+        setError('El título es requerido');
+        return;
+      }
+      
       // Para crear, solo enviamos title y description
       await taskService.createTask({
-        title: taskData.title,
-        description: taskData.description
+        title: taskData.title.trim(),
+        description: taskData.description?.trim() || undefined
       });
+      
       await loadTasks();
       setShowForm(false);
+      setError(null); // Limpiar error en éxito
     } catch (err) {
+      console.error('Error in handleCreateTask:', err);
       setError('Error al crear la tarea');
-      console.error(err);
     }
   };
 

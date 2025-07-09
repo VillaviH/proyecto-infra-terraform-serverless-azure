@@ -14,7 +14,7 @@ var host = new HostBuilder()
         
         // Configurar Entity Framework
         var connectionString = Environment.GetEnvironmentVariable("SqlConnectionString") ??
-            throw new InvalidOperationException("SqlConnectionString no está configurada");
+            "Server=localhost;Database=TaskCrudDb;Trusted_Connection=true;";
             
         services.AddDbContext<TaskDbContext>(options =>
             options.UseSqlServer(connectionString));

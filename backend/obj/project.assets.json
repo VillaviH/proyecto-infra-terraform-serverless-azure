@@ -354,31 +354,6 @@
           }
         }
       },
-      "Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore/1.2.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Azure.Functions.Worker": "1.20.1",
-          "Microsoft.Azure.Functions.Worker.Extensions.Abstractions": "1.3.0",
-          "Microsoft.Azure.Functions.Worker.Extensions.Http": "3.1.0",
-          "Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore.Analyzers": "1.0.1"
-        },
-        "compile": {
-          "lib/net6.0/Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore.dll": {
-            "related": ".xml"
-          }
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
-      },
-      "Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore.Analyzers/1.0.1": {
-        "type": "package"
-      },
       "Microsoft.Azure.Functions.Worker.Grpc/1.16.0": {
         "type": "package",
         "dependencies": {
@@ -2812,33 +2787,6 @@
         "lib/netstandard2.0/Microsoft.Azure.Functions.Worker.Extensions.Http.xml",
         "microsoft.azure.functions.worker.extensions.http.3.1.0.nupkg.sha512",
         "microsoft.azure.functions.worker.extensions.http.nuspec"
-      ]
-    },
-    "Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore/1.2.0": {
-      "sha512": "Z7WFsdDkB8Y6bcoASyc+bLVw4D7AZuisUcqzgZ2MFgluG0PutsL+xWuE46lveJobw6F2LOlGgCZa8jar+rvdnA==",
-      "type": "package",
-      "path": "microsoft.azure.functions.worker.extensions.http.aspnetcore/1.2.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "icon.png",
-        "lib/net6.0/Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore.dll",
-        "lib/net6.0/Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore.xml",
-        "microsoft.azure.functions.worker.extensions.http.aspnetcore.1.2.0.nupkg.sha512",
-        "microsoft.azure.functions.worker.extensions.http.aspnetcore.nuspec"
-      ]
-    },
-    "Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore.Analyzers/1.0.1": {
-      "sha512": "yYdv55rdzHTNfGFah0T19tPjMgK60z721kRyW4Jmb/4exK2z7+cUL7wMZ+jSjK2I2R6V07GKxyaWuy+RJSO6xQ==",
-      "type": "package",
-      "path": "microsoft.azure.functions.worker.extensions.http.aspnetcore.analyzers/1.0.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "analyzers/dotnet/cs/Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore.Analyzers.dll",
-        "icon.png",
-        "microsoft.azure.functions.worker.extensions.http.aspnetcore.analyzers.1.0.1.nupkg.sha512",
-        "microsoft.azure.functions.worker.extensions.http.aspnetcore.analyzers.nuspec"
       ]
     },
     "Microsoft.Azure.Functions.Worker.Grpc/1.16.0": {
@@ -6325,7 +6273,6 @@
       "Microsoft.Azure.Functions.Worker >= 1.21.0",
       "Microsoft.Azure.Functions.Worker.ApplicationInsights >= 1.2.0",
       "Microsoft.Azure.Functions.Worker.Extensions.Http >= 3.1.0",
-      "Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore >= 1.2.0",
       "Microsoft.Azure.Functions.Worker.Sdk >= 1.16.4",
       "Microsoft.EntityFrameworkCore >= 8.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.0",
@@ -6391,10 +6338,6 @@
           "Microsoft.Azure.Functions.Worker.Extensions.Http": {
             "target": "Package",
             "version": "[3.1.0, )"
-          },
-          "Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore": {
-            "target": "Package",
-            "version": "[1.2.0, )"
           },
           "Microsoft.Azure.Functions.Worker.Sdk": {
             "target": "Package",

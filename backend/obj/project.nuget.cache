@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "MO2PNT5DFUA=",
+  "dgSpecHash": "Qhw/tJROH6o=",
   "success": true,
   "projectFilePath": "/Users/villavih/Documents/DATAFAST/proyecto-infra-terraform-serverless-azure/backend/TaskApi.csproj",
   "expectedPackageFiles": [
@@ -24,8 +24,6 @@
     "/Users/villavih/.nuget/packages/microsoft.azure.functions.worker.core/1.17.0/microsoft.azure.functions.worker.core.1.17.0.nupkg.sha512",
     "/Users/villavih/.nuget/packages/microsoft.azure.functions.worker.extensions.abstractions/1.3.0/microsoft.azure.functions.worker.extensions.abstractions.1.3.0.nupkg.sha512",
     "/Users/villavih/.nuget/packages/microsoft.azure.functions.worker.extensions.http/3.1.0/microsoft.azure.functions.worker.extensions.http.3.1.0.nupkg.sha512",
-    "/Users/villavih/.nuget/packages/microsoft.azure.functions.worker.extensions.http.aspnetcore/1.2.0/microsoft.azure.functions.worker.extensions.http.aspnetcore.1.2.0.nupkg.sha512",
-    "/Users/villavih/.nuget/packages/microsoft.azure.functions.worker.extensions.http.aspnetcore.analyzers/1.0.1/microsoft.azure.functions.worker.extensions.http.aspnetcore.analyzers.1.0.1.nupkg.sha512",
     "/Users/villavih/.nuget/packages/microsoft.azure.functions.worker.grpc/1.16.0/microsoft.azure.functions.worker.grpc.1.16.0.nupkg.sha512",
     "/Users/villavih/.nuget/packages/microsoft.azure.functions.worker.sdk/1.16.4/microsoft.azure.functions.worker.sdk.1.16.4.nupkg.sha512",
     "/Users/villavih/.nuget/packages/microsoft.azure.functions.worker.sdk.analyzers/1.2.1/microsoft.azure.functions.worker.sdk.analyzers.1.2.1.nupkg.sha512",

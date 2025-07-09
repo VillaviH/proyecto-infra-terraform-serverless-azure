@@ -1,15 +1,15 @@
 using Microsoft.EntityFrameworkCore;
-using TaskCrudApi.Data;
-using TaskCrudApi.Models;
+using TaskApi.Data;
+using TaskApi.Models;
 
-namespace TaskCrudApi.Services;
+namespace TaskApi.Services;
 
 public interface ITaskService
 {
     Task<IEnumerable<TaskItem>> GetAllTasksAsync();
     Task<TaskItem?> GetTaskByIdAsync(int id);
-    Task<TaskItem> CreateTaskAsync(CreateTaskRequest request);
-    Task<TaskItem?> UpdateTaskAsync(int id, UpdateTaskRequest request);
+    Task<TaskItem> CreateTaskAsync(TaskItem task);
+    Task<TaskItem?> UpdateTaskAsync(int id, TaskItem task);
     Task<bool> DeleteTaskAsync(int id);
 }
 
@@ -24,9 +24,7 @@ public class TaskService : ITaskService
 
     public async Task<IEnumerable<TaskItem>> GetAllTasksAsync()
     {
-        return await _context.Tasks
-            .OrderByDescending(t => t.CreatedAt)
-            .ToListAsync();
+        return await _context.Tasks.OrderByDescending(t => t.CreatedAt).ToListAsync();
     }
 
     public async Task<TaskItem?> GetTaskByIdAsync(int id)
@@ -34,52 +32,41 @@ public class TaskService : ITaskService
         return await _context.Tasks.FindAsync(id);
     }
 
-    public async Task<TaskItem> CreateTaskAsync(CreateTaskRequest request)
+    public async Task<TaskItem> CreateTaskAsync(TaskItem task)
     {
-        var task = new TaskItem
-        {
-            Title = request.Title,
-            Description = request.Description,
-            Priority = request.Priority,
-            CreatedAt = DateTime.UtcNow
-        };
+        task.Id = 0; // Asegurar que EF genere un nuevo ID
+        task.CreatedAt = DateTime.UtcNow;
+        task.UpdatedAt = DateTime.UtcNow;
 
         _context.Tasks.Add(task);
         await _context.SaveChangesAsync();
         return task;
     }
 
-    public async Task<TaskItem?> UpdateTaskAsync(int id, UpdateTaskRequest request)
+    public async Task<TaskItem?> UpdateTaskAsync(int id, TaskItem task)
     {
-        var task = await _context.Tasks.FindAsync(id);
-        if (task == null) return null;
-
-        if (!string.IsNullOrEmpty(request.Title))
-            task.Title = request.Title;
-
-        if (request.Description != null)
-            task.Description = request.Description;
-
-        if (request.IsCompleted.HasValue)
+        var existingTask = await _context.Tasks.FindAsync(id);
+        if (existingTask == null)
         {
-            task.IsCompleted = request.IsCompleted.Value;
-            if (request.IsCompleted.Value && task.CompletedAt == null)
-                task.CompletedAt = DateTime.UtcNow;
-            else if (!request.IsCompleted.Value)
-                task.CompletedAt = null;
+            return null;
         }
 
-        if (request.Priority.HasValue)
-            task.Priority = request.Priority.Value;
+        existingTask.Title = task.Title;
+        existingTask.Description = task.Description;
+        existingTask.Status = task.Status;
+        existingTask.UpdatedAt = DateTime.UtcNow;
 
         await _context.SaveChangesAsync();
-        return task;
+        return existingTask;
     }
 
     public async Task<bool> DeleteTaskAsync(int id)
     {
         var task = await _context.Tasks.FindAsync(id);
-        if (task == null) return false;
+        if (task == null)
+        {
+            return false;
+        }
 
         _context.Tasks.Remove(task);
         await _context.SaveChangesAsync();

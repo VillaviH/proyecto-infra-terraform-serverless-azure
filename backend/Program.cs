@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TaskApi.Data;
+using TaskApi.Services;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
@@ -17,6 +18,9 @@ var host = new HostBuilder()
             
         services.AddDbContext<TaskDbContext>(options =>
             options.UseSqlServer(connectionString));
+            
+        // Registrar servicios
+        services.AddScoped<ITaskService, TaskService>();
     })
     .Build();
 

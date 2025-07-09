@@ -10,5 +10,5 @@ static_web_app_location = "frontend/out"
 
 sql_server_name = "crudappsqlproddatafast"
 sql_admin_username = "sqladmin"
-sql_admin_password = "MySecureP@ssw0rd2025!"
+sql_admin_password = "xxxxxxxxxxxxxx"
 database_name = "crudappdbproddatafast"

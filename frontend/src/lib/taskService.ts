@@ -2,14 +2,31 @@ import { TaskItem } from '@/types/task';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:7071/api';
 
+// Función para transformar datos del backend (PascalCase) a frontend (camelCase)
+const transformTaskFromBackend = (backendTask: any): TaskItem => ({
+  id: backendTask.Id,
+  title: backendTask.Title,
+  description: backendTask.Description,
+  status: backendTask.Status,
+  createdAt: backendTask.CreatedAt,
+  updatedAt: backendTask.UpdatedAt
+});
+
 export const taskService = {
   // Obtener todas las tareas
   async getTasks(): Promise<TaskItem[]> {
+    console.log('Fetching tasks from API...'); // Debug log
     const response = await fetch(`${API_BASE_URL}/tasks`);
     if (!response.ok) {
       throw new Error('Error al obtener las tareas');
     }
-    return response.json();
+    const backendTasks = await response.json();
+    console.log('Backend tasks:', backendTasks); // Debug log
+    
+    // Transformar datos del backend a formato frontend
+    const tasks = backendTasks.map(transformTaskFromBackend);
+    console.log('Transformed tasks:', tasks); // Debug log
+    return tasks;
   },
 
   // Obtener tarea por ID
@@ -18,7 +35,8 @@ export const taskService = {
     if (!response.ok) {
       throw new Error('Error al obtener la tarea');
     }
-    return response.json();
+    const backendTask = await response.json();
+    return transformTaskFromBackend(backendTask);
   },
 
   // Crear nueva tarea
@@ -49,7 +67,10 @@ export const taskService = {
       console.error('Error creating task:', response.status, errorText);
       throw new Error(`Error al crear la tarea: ${errorText}`);
     }
-    return response.json();
+    
+    const backendTask = await response.json();
+    console.log('Backend created task:', backendTask); // Debug log
+    return transformTaskFromBackend(backendTask);
   },
 
   // Actualizar tarea
@@ -70,7 +91,9 @@ export const taskService = {
       console.error('Error updating task:', response.status, errorText);
       throw new Error('Error al actualizar la tarea');
     }
-    return response.json();
+    
+    const backendTask = await response.json();
+    return transformTaskFromBackend(backendTask);
   },
 
   // Eliminar tarea
